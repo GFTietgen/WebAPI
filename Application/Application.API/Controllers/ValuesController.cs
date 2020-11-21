@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.API.ViewModel;
+using Application.Models.Concretas;
+using Application.Repository;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Application.API.Controllers
 {
@@ -7,18 +13,34 @@ namespace Application.API.Controllers
     [Route("[controller]")]
     public class ValuesController : ControllerBase
     {
+        private UsuarioRepository repository;
+
+        public ValuesController()
+        {
+            repository = new UsuarioRepository();
+        }
+
         //GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            string json = string.Empty;
+            var listagem = repository.Read();
+
+            json = JsonSerializer.Serialize(listagem);
+
+            return json;
         }
 
         //GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return id.ToString();
+            var pesquisa = repository.Read(id);
+
+            string json = JsonSerializer.Serialize(pesquisa);
+
+            return json;
         }
 
         //POST api/values
