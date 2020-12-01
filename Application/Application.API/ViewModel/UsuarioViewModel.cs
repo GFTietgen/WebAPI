@@ -4,10 +4,11 @@ namespace Application.API.ViewModel
 {
     public class UsuarioViewModel
     {
+        public int ID { get; set; }
         public string NOME { get; set; }
-        public DateTime DATA_CADASTRO { get; set; }
+        public string DATA_CADASTRO { get; set; }
         public string CPF_CNPJ { get; set; }
-        public DateTime DATA_NASCIMENTO { get; set; }
+        public string DATA_NASCIMENTO { get; set; }
         public char TIPO { get; set; }
         public string TELEFONE { get; set; }
         public string EMAIL { get; set; }

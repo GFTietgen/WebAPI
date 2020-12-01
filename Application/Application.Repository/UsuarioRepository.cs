@@ -12,7 +12,7 @@ namespace Application.Repository
         {
             string retorno = string.Empty;
             string sql = "INSERT INTO dbcliente.cliente(NOME, DATA_CADASTRO, CPF_CNPJ, DATA_NASCIMENTO, TIPO, TELEFONE, EMAIL, CEP, LOGRADOURO, NUMERO, BAIRRO, COMPLEMENTO, CIDADE, UF)";
-                   sql += $"VALUES('{data.NOME}', '{data.DATA_CADASTRO.ToString("yyyy-MM-dd")}', '{data.CPF_CNPJ}', '{data.DATA_NASCIMENTO.ToString("yyyy-MM-dd")}', '{data.TIPO}', '{data.TELEFONE}', '{data.EMAIL}', '{data.CEP}', '{data.LOGRADOURO}', '{data.NUMERO}', '{data.BAIRRO}', '{data.COMPLEMENTO}', '{data.CIDADE}', '{data.UF}')";
+                   sql += $"VALUES('{data.NOME}', '{data.DATA_CADASTRO.ToString("yyyy/MM/dd")}', '{data.CPF_CNPJ}', '{data.DATA_NASCIMENTO.ToString("yyyy/MM/dd")}', '{data.TIPO}', '{data.TELEFONE}', '{data.EMAIL}', '{data.CEP}', '{data.LOGRADOURO}', '{data.NUMERO}', '{data.BAIRRO}', '{data.COMPLEMENTO}', '{data.CIDADE}', '{data.UF}')";
 
             try
             {
@@ -111,12 +111,53 @@ namespace Application.Repository
 
         public override string Update(Usuario data)
         {
-            throw new NotImplementedException();
+            string retorno = string.Empty;
+            string sql = "UPDATE cliente SET                                          ";
+            sql += $"NOME           ='{data.NOME}',                                   ";
+            sql += $"DATA_CADASTRO  ='{data.DATA_CADASTRO.ToString("yyyy/MM/dd")}',   ";
+            sql += $"CPF_CNPJ       ='{data.CPF_CNPJ}',                               ";
+            sql += $"DATA_NASCIMENTO='{data.DATA_NASCIMENTO.ToString("yyyy/MM/dd")}', ";
+            sql += $"TIPO           ='{data.TIPO}',                                   ";
+            sql += $"TELEFONE       ='{data.TELEFONE}',                               ";
+            sql += $"EMAIL          ='{data.EMAIL}',                                  ";
+            sql += $"CEP            ='{data.CEP}',                                    ";
+            sql += $"LOGRADOURO     ='{data.LOGRADOURO}',                             ";
+            sql += $"NUMERO         ='{data.NUMERO}',                                 ";
+            sql += $"BAIRRO         ='{data.BAIRRO}',                                 ";
+            sql += $"COMPLEMENTO    ='{data.COMPLEMENTO}',                            ";
+            sql += $"CIDADE         ='{data.CIDADE}',                                 ";
+            sql += $"UF             ='{data.UF}'                                      ";
+            sql += $"WHERE ID={data.ID}                                             ";
+
+            try
+            {
+                ExecutarComandoSql(sql);
+                retorno = "Atualizado";
+            }
+            catch (Exception ex)
+            {
+                retorno = ex.Message;
+            }
+
+            return retorno;
         }
 
         public override string Delete(int id)
         {
-            throw new NotImplementedException();
+            string retorno = string.Empty;
+            string sql = $"DELETE FROM cliente WHERE ID={id}";
+
+            try
+            {
+                ExecutarComandoSql(sql);
+                retorno = "Apagado";
+            }
+            catch (Exception ex)
+            {
+                retorno = ex.Message;
+            }
+
+            return retorno;
         }
     }
 }
